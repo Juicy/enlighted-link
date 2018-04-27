@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../enlighted-link.html">
+</head>
+
+<body>
+</body>
+<script>
+    let shadowHost, enlightedLink;
+    describe(`enlighted-link attributes 'href', 'rel', 'media', 'hreflang', 'type', 'sizes', 'title'`, function() {
+
+        beforeEach(function() {
+            shadowHost = document.createElement('div');
+            document.body.appendChild(shadowHost);
+            shadowHost.attachShadow({mode:'open'});
+            shadowHost.shadowRoot.innerHTML = `<enlighted-link rel="import" href="assets/doc-with-js.html"
+                media="a"
+                hreflang="b"
+                type="c"
+                sizes="d"
+                title="e"></enlighted-link>`;
+            enlightedLink = shadowHost.shadowRoot.querySelector('enlighted-link');
+        });
+        afterEach(function() {
+            shadowHost.remove();
+        });
+
+        it('should attach `link` element with same attributes to the document\'s head', function() {
+            expect(document.head.querySelector('link[rel="import"][href="assets/doc-with-js.html"][media="a"][hreflang="b"][type="c"][sizes="d"][title="e"]')).to.be.not.null;
+        });
+        it('should forward attribute changes to the `link`', function() {
+            const link = document.head.querySelector('link[rel="import"][href="assets/doc-with-js.html"][media="a"][hreflang="b"][type="c"][sizes="d"][title="e"]');
+
+            enlightedLink.setAttribute('rel', 'a');
+            enlightedLink.setAttribute('href', 'b');
+            enlightedLink.setAttribute('media', 'c');
+            enlightedLink.setAttribute('hreflang', 'd');
+            enlightedLink.setAttribute('type', 'e');
+            enlightedLink.setAttribute('sizes', 'f');
+            enlightedLink.setAttribute('title', 'g');
+
+            expect(link.getAttribute('rel')).to.equal('a');
+            expect(link.getAttribute('href')).to.equal('b');
+            expect(link.getAttribute('media')).to.equal('c');
+            expect(link.getAttribute('hreflang')).to.equal('d');
+            expect(link.getAttribute('type')).to.equal('e');
+            expect(link.getAttribute('sizes')).to.equal('f');
+            expect(link.getAttribute('title')).to.equal('g');
+        });
+        it('should forward attribute removal to the `link`', function() {
+            const link = document.head.querySelector('link[rel="import"][href="assets/doc-with-js.html"][media="a"][hreflang="b"][type="c"][sizes="d"][title="e"]');
+
+            enlightedLink.removeAttribute('rel');
+            enlightedLink.removeAttribute('href');
+            enlightedLink.removeAttribute('media');
+            enlightedLink.removeAttribute('hreflang');
+            enlightedLink.removeAttribute('type');
+            enlightedLink.removeAttribute('sizes');
+            enlightedLink.removeAttribute('title');
+
+            expect(link.hasAttribute('rel')).to.be.false;
+            expect(link.hasAttribute('href')).to.be.false;
+            expect(link.hasAttribute('media')).to.be.false;
+            expect(link.hasAttribute('hreflang')).to.be.false;
+            expect(link.hasAttribute('type')).to.be.false;
+            expect(link.hasAttribute('sizes')).to.be.false;
+            expect(link.hasAttribute('title')).to.be.false;
+        });
+
+    });
+</script>
+
+</html>

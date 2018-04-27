@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../enlighted-link.html">
+</head>
+
+<body>
+    <div id="shadow-host"></div>
+</body>
+<script>
+    let shadowHost, enlightedLink;
+    describe('enlighted-link', function() {
+
+        before(function() {
+            shadowHost = document.querySelector('#shadow-host');
+            shadowHost.attachShadow({mode:'open'});
+            shadowHost.shadowRoot.innerHTML = `<enlighted-link rel="import" href="assets/doc-with-js.html"></enlighted-link>`;
+            enlightedLink = shadowHost.shadowRoot.querySelector('enlighted-link');
+        });
+
+        it('should attach `link` element with same `rel` and `href` attributes to the document\'s head', function() {
+            expect(document.head.querySelector('link[rel="import"][href="assets/doc-with-js.html"]')).to.be.not.null;
+        });
+
+        it('should expose created `link` element under `.link` property', function() {
+            expect(document.head.querySelector('link[rel="import"][href="assets/doc-with-js.html"]')).to.equal(enlightedLink.link);
+            expect(enlightedLink.link).to.be.instanceof(HTMLLinkElement);
+        });
+
+        it('should make `link rel="import"` eventually import the document', function(done) {
+            setTimeout(()=>{
+                expect(window['doc-with-js-loaded']).to.be.true;
+                done();
+            }, 100);
+        });
+
+        it('once removed should remove related `link` from the document', function() {
+            enlightedLink.remove();
+
+            expect(document.head.querySelector('link[rel="import"][href="assets/doc-with-js.html"]')).to.be.null;
+            expect(document.contains(enlightedLink.link)).to.be.false;
+        });
+    });
+</script>
+
+</html>
