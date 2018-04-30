@@ -20,8 +20,7 @@ customElements.define('enlighted-link', class extends HTMLElement{
             link.setAttribute(this.attributes[attrNo].name, this.attributes[attrNo].value);
         }
         document.head.appendChild(link);
-        // TODO/FIXME(tomalec): attach mutation observer on links parent, to detach this in case link is detached
-        // so we can free GC, and make it mahave more predictably. And to observe the links attributes
+        // IDEA(tomalec): attach mutation observer on links parent, to detach this in case link is detached.
     }
     disconnectedCallback(){
         this.link.remove();
