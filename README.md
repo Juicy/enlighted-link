@@ -2,7 +2,7 @@
 
 > Custom element to enlight your `<link>`s from Shadow DOM to the Light.
 
-By current spec [HTML Imports does not work in Shadow DOM](https://github.com/w3c/webcomponents/issues/628). That makes it hard to import definitions of custom elements that you use in a shadow root. This element allows you to do that. You could import your dependencies exactly where and when you need them.
+By current spec [HTML Imports do not work in Shadow DOM](https://github.com/w3c/webcomponents/issues/628). That makes it hard to import definitions of custom elements that you use in a shadow root. This element allows you to do that. You could import your dependencies exactly where and when you need them.
 
 ## Demo
 
@@ -40,7 +40,7 @@ Or [download as ZIP](https://github.com/Juicy/enlighted-link/archive/master.zip)
             <enlighted-link rel="import" href="path/to/some-thing.html"></enlighted-link>
             <!-- now you can use whatever you imported -->
             <some-thing></some-thing>
-        #/shadow-root>
+        #/shadow-root
     </div>
     ```
 

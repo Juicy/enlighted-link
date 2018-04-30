@@ -8,7 +8,7 @@
 
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.10/webcomponents-lite.js"></script> -->
-    <script src="../webcomponentsjs/webcomponents-sd-ce.js"></script>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
 
 
 
@@ -17,7 +17,7 @@
 </head>
 <body class="markdown-body">
     <template is="shadow-root" mode="open">
-        <enlighted-link rel="import" href="../juicy-ace-editor/juicy-ace-editor.html">
+        <enlighted-link rel="import" href="../juicy-ace-editor/juicy-ace-editor.html"></enlighted-link>
         <style>
             :host(.markdown-body){
                 height: 100%;
@@ -72,7 +72,7 @@
     </blockquote>
 
     <p slot="solves">
-        By current spec <a href="https://github.com/w3c/webcomponents/issues/628">HTML Imports does not work in Shadow DOM</a>.
+        By current spec <a href="https://github.com/w3c/webcomponents/issues/628">HTML Imports do not work in Shadow DOM</a>.
         That makes it hard to import definitions of custom elements that you use in a shadow root.
     </p>
     <p slot="solves">
