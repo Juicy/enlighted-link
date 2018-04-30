@@ -1,28 +1,38 @@
 <!-- enlighted-link @version: 0.0.0 @license: MIT -->
 <script>
-    customElements.define('enlighted-link', class extends HTMLElement {
-        // List of attributes observed for attributeChangedCallback
-        static get observedAttributes() {
-            return [];
+customElements.define('enlighted-link', class extends HTMLElement{
+    static get observedAttributes(){
+        return [
+            // content attrs
+            'href',
+            'rel',
+            'media',
+            'hreflang',
+            'type',
+            'sizes',
+            'title'
+        ]
+    }
+    connectedCallback(){
+        const link = this.link = this.link || document.createElement('link');
+
+        for(let attrNo = 0, len = this.attributes.length; attrNo < len; attrNo++){
+            link.setAttribute(this.attributes[attrNo].name, this.attributes[attrNo].value);
         }
-
-        // Fires when an instance of the element is created
-        constructor() {
-            super();
+        document.head.appendChild(link);
+        // IDEA(tomalec): attach mutation observer on links parent, to detach this in case link is detached.
+    }
+    disconnectedCallback(){
+        this.link.remove();
+    }
+    attributeChangedCallback(name, oldVal, newVal){
+        if(this.link){
+            if(newVal !== null){
+                this.link.setAttribute(name, newVal);
+            } else {
+                this.link.removeAttribute(name);
+            }
         }
-        // Fires when an instance was inserted into the document
-        connectedCallback() {
-
-        }
-
-        // Fires when an instance was removed from the document
-        disconnectedCallback() {
-
-        };
-
-        // Fires when an attribute was added, removed, or updated
-        attributeChangedCallback(attr, oldVal, newVal) {
-
-        };
-    });
+    }
+});
 </script>

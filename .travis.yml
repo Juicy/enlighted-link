@@ -2,18 +2,23 @@ language: node_js
 sudo: required
 dist: trusty
 before_script:
-  - npm install web-component-tester
-  - npm install bower
-  - 'export PATH=$PWD/node_modules/.bin:$PATH'
-  - bower install
-node_js: 4
+- npm install -g web-component-tester
+- npm install bower
+- export PATH=$PWD/node_modules/.bin:$PATH
+- bower install
+node_js: 8
 addons:
   firefox: latest
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
+    - google-chrome-stable
 script:
-  - xvfb-run wct --skip-plugin sauce
-  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct --skip-plugin local --plugin sauce; fi"
+- xvfb-run wct --skip-plugin sauce
+- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --skip-plugin local --plugin
+  sauce; fi
+env:
+  global:
+  - secure: kHodRIENPgowf006Up07SZvJ7/tigeeAKDsfkv22ahRWKJZTlczeK8LYl3cFQZaOBVpQu0cM8SI7ghZunHGH5nm2TOqS+2+Lbf0yzG1IXcq7h2wGapxfHkDmBz6Dj2P87LkNE607IxRUjp39pmDikJf8J5dIDuRlmAFh0CNN4txwR0UOAy9kOXpt7cW6p6qzqvlfuMrlbYWlXLsuox/qOx7FYvRMTPhHdhXCtXE+qs9d14mxu+IucP8UxO29q5IP7T1ozX7VP8VAVBXaG9mS2SM7Xja4oC/ZK0PCVDrdeICfUKQWmxR6xCiESDaCK5A3TfTk/Hl1CTBN9u/k3NPWKHYwK2ObbnCnK3b8aSOh+XGywioxa5dxDNmJgqPCx6JKz/acbylHZJtL7fD2oUCrIiAaA2HbIj/X3j51n45g+jQJ0/q+DCnp0gnY7UNfvoUynj2futCfQXt6EanWWy+KY0lnLJSgNgfnAYe6oWIfCrByfuue1Rkzv2SNl1THOY/7kSd39NXbHPwJQaPFNOgR0bnEg4OVDe6UPtSqG8OHyZkM+Xoci18n3bEqrYhwUJcx3kATI1mxM8c4TKa6Il//kBuaA9R1zWUHZhEBgcryfJfxqrL+f/yW+b2ca7lI/CluW/9c9q49RtOSxUm7dDzRmj/Z2SLuX0tdc6mMB6TM26U=
+  - secure: mL79Rx/Cagh+zJwGwhSqz12W/eppSE0AuxPXEnVm5Cg6NnFwReMgKICQFZuJjZjRMCq6x+r1cV1tc5A9L7OpOJxGvfqD5w4vO+XmBtQ1+KY/KxCSUZIyGJd3iofQLu2/LXH0V9yoMZvH/psqh7aPKqnLlk1aXxxJABgXXVEjx91q2N/zcPfnv3bwMY8PHFY9kaOYftpmTiEyZgDpbYlTg0nSDT+ifi/Ov5B4VCTOCNtWkHTxkZpmcoF478Bfn1iwlzYfI4zATsE3bSbNfLf7OnF1sUXifkzc5+l2cOTe8mzy7LeJ/fdczbYwwgos6zwzmf7MRBiVnX5DGbuOU708E/1hfL0Ry68gr6mG3IQ5zo5fcP/zuNI8QCZGmkZN2dkggrVPHr8JAMiDCbFyTPzTWWqwcIS+Le4ZmIvtR73XQE47PInkq9tHMPlWVkGmEujcjg6ZPj3WaMAww/+2KJKv5dw0kVzMrWURqQYpwzevIG6C+BZWzlN+eRae3RJeZSx0Ut7qGhmv0ALFhBW3SpZOauNAdcB1RQvMrZ0DfcKiL4CcCYqtAGxiaPvMo7HxG6bOyDN+NvQ8JW7Dax7z4PGwde6miF+Ecgt4IBy7DEZl8JC/POj6B5CrxUFdVFXglsoGc8Q7kaHmW5IdYqGft3a0BWEDYGl8PHrcD2ErV9UdGqc=
