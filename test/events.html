@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../enlighted-link.html">
+</head>
+
+<body>
+</body>
+<script>
+    let shadowHost, enlightedLink;
+    describe(`enlighted-link should dispatch`, function() {
+        let loadSpy, errorSpy;
+        beforeEach(function() {
+            loadSpy = sinon.spy();
+            errorSpy = sinon.spy();
+            shadowHost = document.createElement('div');
+            shadowHost.attachShadow({mode:'open'});
+            shadowHost.shadowRoot.innerHTML = `<enlighted-link rel="stylesheet"></enlighted-link>`;
+            shadowHost.shadowRoot.innerHTML = `<enlighted-link rel="import"></enlighted-link>`;
+            enlightedLink = shadowHost.shadowRoot.querySelector('enlighted-link');
+        });
+        afterEach(function() {
+            shadowHost.remove();
+            enlightedLink.removeEventListener('load', loadSpy);
+            enlightedLink.removeEventListener('error', errorSpy);
+        });
+        it(`\`load\` event when link is loaded`, function(done) {
+            enlightedLink.addEventListener('load', loadSpy);
+            enlightedLink.setAttribute('href', 'assets/doc-with-js.html');
+
+            setTimeout(()=>{
+                expect(loadSpy).to.be.calledOnce;
+                expect(loadSpy.args[0][0].type).to.equal('load');
+                done();
+            },100);
+            document.body.appendChild(shadowHost);
+        });
+        it(`only one \`load\` event when link is loaded for re-attached element`, function(done) {
+            document.body.appendChild(shadowHost);
+            enlightedLink.addEventListener('load', loadSpy);
+            enlightedLink.setAttribute('href', 'assets/doc-with-js.html?2');
+
+            setTimeout(()=>{
+                expect(loadSpy).to.be.calledOnce;
+                expect(loadSpy.args[0][0].type).to.equal('load');
+                done();
+            },100);
+            document.body.appendChild(shadowHost);
+        });
+        it(`\`error\` event when link is errored`, function(done) {
+            enlightedLink.addEventListener('error', errorSpy);
+            enlightedLink.setAttribute('href', 'non-existing.html');
+
+            setTimeout(()=>{
+                expect(errorSpy).to.be.calledOnce;
+                expect(errorSpy.args[0][0].type).to.equal('error');
+                done();
+            },100);
+            document.body.appendChild(shadowHost);
+        });
+        it(`only one \`error\` event when link is errored for re-attached element`, function(done) {
+            enlightedLink.setAttribute('href', 'non-existing2.html');
+            document.body.appendChild(shadowHost);
+            enlightedLink.addEventListener('error', errorSpy);
+
+            setTimeout(()=>{
+                expect(errorSpy).to.be.calledOnce;
+                expect(errorSpy.args[0][0].type).to.equal('error');
+                done();
+            },100);
+            document.body.appendChild(shadowHost);
+        });
+
+    });
+</script>
+
+</html>

@@ -56,6 +56,17 @@ The element forwards [`link` element's content attributes](https://dev.w3.org/ht
 - sizes
 - title
 
+## Properties
+
+Property   | Options           | Default | Description
+---        | ---               | ---     | ---
+`link`     | *HTMLLinkElement* |         | Created `<link>` element, bare in mind that it may not be disconnected from `document.head`, if `<enlighted-link>` is disconnected, or `null` if the element was not connected at all.
+
+## Events
+
+The element forwards following events from created `<link>`:
+- `load`,
+- `error`
 
 ## [Contributing and Development](CONTRIBUTING.md)
 
