@@ -22,9 +22,9 @@
             errorSpy = sinon.spy();
             shadowHost = document.createElement('div');
             shadowHost.attachShadow({mode:'open'});
-            shadowHost.shadowRoot.innerHTML = `<enlighted-link rel="stylesheet"></enlighted-link>`;
-            shadowHost.shadowRoot.innerHTML = `<enlighted-link rel="import"></enlighted-link>`;
-            enlightedLink = shadowHost.shadowRoot.querySelector('enlighted-link');
+            enlightedLink = document.createElement('enlighted-link');
+            enlightedLink.setAttribute('rel', 'import');
+            shadowHost.shadowRoot.appendChild(enlightedLink);
         });
         afterEach(function() {
             shadowHost.remove();
@@ -39,7 +39,7 @@
                 expect(loadSpy).to.be.calledOnce;
                 expect(loadSpy.args[0][0].type).to.equal('load');
                 done();
-            },100);
+            }, 200);
             document.body.appendChild(shadowHost);
         });
         it(`only one \`load\` event when link is loaded for re-attached element`, function(done) {
@@ -51,7 +51,7 @@
                 expect(loadSpy).to.be.calledOnce;
                 expect(loadSpy.args[0][0].type).to.equal('load');
                 done();
-            },100);
+            }, 200);
             document.body.appendChild(shadowHost);
         });
         it(`\`error\` event when link is errored`, function(done) {
@@ -62,7 +62,7 @@
                 expect(errorSpy).to.be.calledOnce;
                 expect(errorSpy.args[0][0].type).to.equal('error');
                 done();
-            },100);
+            }, 200);
             document.body.appendChild(shadowHost);
         });
         it(`only one \`error\` event when link is errored for re-attached element`, function(done) {
@@ -74,7 +74,7 @@
                 expect(errorSpy).to.be.calledOnce;
                 expect(errorSpy.args[0][0].type).to.equal('error');
                 done();
-            },100);
+            }, 200);
             document.body.appendChild(shadowHost);
         });
 
