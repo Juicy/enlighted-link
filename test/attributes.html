@@ -30,7 +30,7 @@
             enlightedLink = shadowHost.shadowRoot.querySelector('enlighted-link');
         });
         afterEach(function() {
-            shadowHost.remove();
+            shadowHost.parentNode && shadowHost.parentNode.removeChild(shadowHost);
         });
 
         it('should attach `link` element with same attributes to the document\'s head', function() {

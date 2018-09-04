@@ -27,7 +27,7 @@
             shadowHost.shadowRoot.appendChild(enlightedLink);
         });
         afterEach(function() {
-            shadowHost.remove();
+            shadowHost.parentNode && shadowHost.parentNode.removeChild(shadowHost);
             enlightedLink.removeEventListener('load', loadSpy);
             enlightedLink.removeEventListener('error', errorSpy);
         });
