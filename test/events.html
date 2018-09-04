@@ -15,7 +15,7 @@
 </body>
 <script>
     let shadowHost, enlightedLink;
-    describe(`enlighted-link should dispatch`, function() {
+    describe('enlighted-link should dispatch', function() {
         let loadSpy, errorSpy;
         beforeEach(function() {
             loadSpy = sinon.spy();
@@ -31,7 +31,7 @@
             enlightedLink.removeEventListener('load', loadSpy);
             enlightedLink.removeEventListener('error', errorSpy);
         });
-        it(`\`load\` event when link is loaded`, function(done) {
+        it('`load` event when link is loaded', function(done) {
             enlightedLink.addEventListener('load', loadSpy);
             enlightedLink.setAttribute('href', 'assets/doc-with-js.html');
 
@@ -42,7 +42,7 @@
             }, 200);
             document.body.appendChild(shadowHost);
         });
-        it(`only one \`load\` event when link is loaded for re-attached element`, function(done) {
+        it('only one `load` event when link is loaded for re-attached element', function(done) {
             document.body.appendChild(shadowHost);
             enlightedLink.addEventListener('load', loadSpy);
             enlightedLink.setAttribute('href', 'assets/doc-with-js.html?2');
@@ -54,7 +54,7 @@
             }, 200);
             document.body.appendChild(shadowHost);
         });
-        it(`\`error\` event when link is errored`, function(done) {
+        it('`error` event when link is errored', function(done) {
             enlightedLink.addEventListener('error', errorSpy);
             enlightedLink.setAttribute('href', 'non-existing.html');
 
@@ -65,7 +65,7 @@
             }, 200);
             document.body.appendChild(shadowHost);
         });
-        it(`only one \`error\` event when link is errored for re-attached element`, function(done) {
+        it('only one `error` event when link is errored for re-attached element', function(done) {
             enlightedLink.setAttribute('href', 'non-existing2.html');
             document.body.appendChild(shadowHost);
             enlightedLink.addEventListener('error', errorSpy);
