@@ -21,7 +21,7 @@ customElements.define('enlighted-link', class extends HTMLElement{
         if(this.link){
             link = this.link;
         } else {
-            link = this.link = this.link || document.createElement('link');
+            link = this.link = document.createElement('link');
             link.addEventListener('load', forwardEvent);
             link.addEventListener('error', forwardEvent);
         }
